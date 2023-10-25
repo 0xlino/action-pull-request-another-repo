@@ -1,12 +1,9 @@
 name: 'Pull Request another repository'
 description: 'Used for pull request a copy of a folder to another repository'
 inputs:
-  source_folder_ignore:
+  source_folder:
     description: 'Source folder from origin'
     required: true
-  file_ignores:
-    description: 'Files to ignore during copying (comma-separated)'
-    required: false
   destination_repo:
     description: 'Destination repository'
     required: true
@@ -35,21 +32,32 @@ inputs:
   message: 
     description: 'message for PR title'
     required: false
+  files_to_exclude: 
+    description: 'message for PR title'
+    required: false
+  body: 
+    description: 'body for PR'
+    required: false
+  destination_files:
+    description: 'Array of files updated in PR'
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.source_folder_ignore }}
-    - ${{ inputs.file_ignores }}
-    - ${{ inputs.destination_repo }}
-    - ${{ inputs.destination_folder }}
-    - ${{ inputs.user_email }}
-    - ${{ inputs.user_name }}
-    - ${{ inputs.destination_head_branch }}
-    - ${{ inputs.destination_base_branch }}
-    - ${{ inputs.pull_request_reviewers }}
+    - ${{ inputs.source-folder }}
+    - ${{ inputs.destination-repo }}
+    - ${{ inputs.destination-folder }}
+    - ${{ inputs.user-email }}
+    - ${{ inputs.user-name }}
+    - ${{ inputs.destination-head-branch }}
+    - ${{ inputs.destination-base-branch }}
+    - ${{ inputs.pull-request-reviewers }}
     - ${{ inputs.symbol }}
     - ${{ inputs.message }}
+    - ${{ inputs.files-to-exclude }} 
+    - ${{ inputs.body }}
+    - ${{ inputs.destination_files }}
 branding:
   icon: 'git-commit'
   color: 'green'
